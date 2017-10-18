@@ -28,7 +28,7 @@ defmodule MssqlEcto.Mixfile do
   end
 
   defp deps do
-    [{:mssqlex, "~> 0.8.0"},
+    [{:mssqlex, "~> 0.8.0", github: "kaiatgithub/mssqlex", branch: "feature/stored-procedures"},
      {:ecto, "~> 2.1.0"},
      {:ex_doc, "~> 0.15", only: :dev, runtime: false},
      {:excoveralls, "~> 0.6", only: :test},

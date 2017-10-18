@@ -106,13 +106,16 @@ defmodule MssqlEcto.Connection do
       is_dml and error.message =~ "No SQL-driver information available."
   end
 
-  defp process_rows(result, options) do
+  defp process_rows(result, options) when is_map(result) do
     decoder = options[:decode_mapper] || fn x -> x end
     Map.update!(result, :rows, fn row ->
       unless is_nil(row), do: Enum.map(row, decoder)
     end)
   end
 
+  defp process_rows(result, options) when is_list(result) do
+    Enum.map(result, &process_rows(&1, options))
+  end
 
   @doc """
   Receives the exception returned by `query/4`.
